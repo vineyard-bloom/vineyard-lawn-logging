@@ -1,0 +1,38 @@
+{
+  "Request": {
+    "properties": {
+      "path": {
+        "type": "string"
+      },
+      "method": {
+        "type": "string"
+      },
+      "data": {
+        "type": "text"
+      },
+      "session": {
+        "type": "string",
+        "nullable": true
+      },
+      "user": {
+        "type": "User",
+        "nullable": true
+      },
+      "response_code": {
+        "type": "string"
+      },
+      "response_message": {
+        "type": "string"
+      },
+      "response_body": {
+        "type": "string"
+      },
+      "milliseconds": {
+        "type": "int"
+      },
+      "version": {
+        "type": "string"
+      }
+    }
+  }
+}
