@@ -1,13 +1,16 @@
 {
   "Request": {
     "properties": {
+      "id": {
+        "type": "long"
+      },
       "path": {
         "type": "string"
       },
       "method": {
         "type": "string"
       },
-      "data": {
+      "parameters": {
         "type": "text"
       },
       "session": {
@@ -33,6 +36,11 @@
       "version": {
         "type": "string"
       }
+    },
+    "additional": {
+      "autoFields": [
+        "created"
+      ]
     }
   }
 }
