@@ -1,5 +1,25 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+function sanitizeRequestBody(body) {
+    if (body && (body.password || body.twoFactor)) {
+        body = Object.assign({}, body);
+        if (body.password)
+            body.password = '****';
+        if (body.twoFactor)
+            body.twoFactor = '****';
+    }
+    return body;
+}
+function sanitizeResponseBody(body) {
+    if (body && (body.secret || body.secret_url)) {
+        body = Object.assign({}, body);
+        if (body.secret)
+            body.secret = '****';
+        if (body.secret_url)
+            delete body.secret_url; // secret_url is deprecated.
+    }
+    return body;
+}
 function formatObject(item) {
     return !item || Object.keys(item).length == 0
         ? ''
@@ -15,12 +35,12 @@ var CommonRequestLogger = (function () {
         var record = {
             path: path,
             method: req.method.toLowerCase(),
-            parameters: formatObject(request.data),
+            parameters: formatObject(sanitizeRequestBody(request.data)),
             session: request.session ? request.session.id : null,
             user: request.user ? request.user.id : null,
             response_code: response.code,
             response_message: response.message,
-            response_body: JSON.stringify(response.body),
+            response_body: JSON.stringify(sanitizeResponseBody(response.body)),
             milliseconds: new Date().getTime() - request.startTime,
             version: request.version.toString(),
         };
