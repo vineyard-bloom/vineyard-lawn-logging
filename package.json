@@ -13,7 +13,7 @@
   "dependencies": {
     "vineyard-ground": "^0.2.13",
     "vineyard-error-logging": "^0.1.0",
-    "vineyard-lawn": "^0.4.11"
+    "vineyard-lawn": "^0.x.x"
   },
   "devDependencies": {
     "@types/es6-promise": "0.0.32",
