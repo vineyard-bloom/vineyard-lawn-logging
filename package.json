@@ -11,9 +11,9 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "vineyard-ground": "^0.2.13",
-    "vineyard-error-logging": "^0.1.0",
-    "vineyard-lawn": "^0.x.x"
+    "vineyard-ground": "vineyard-bloom/vineyard-ground",
+    "vineyard-error-logging": "vineyard-bloom/vineyard-error-logging",
+    "vineyard-lawn": "vineyard-bloom/vineyard-lawn"
   },
   "devDependencies": {
     "@types/es6-promise": "0.0.32",
