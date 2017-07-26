@@ -28,7 +28,8 @@
         "type": "string"
       },
       "response_body": {
-        "type": "text"
+        "type": "text",
+        "nullable": true
       },
       "milliseconds": {
         "type": "int"
