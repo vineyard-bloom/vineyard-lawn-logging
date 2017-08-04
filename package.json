@@ -1,6 +1,6 @@
 {
   "name": "vineyard-lawn-logging",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Database logging for Vineyard Lawn",
   "main": "source/index.js",
   "types": "source/index.d.ts",
