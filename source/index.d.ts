@@ -12,6 +12,7 @@ export interface RequestRecord {
     response_body: string;
     milliseconds: number;
     version: string;
+    ip: string;
 }
 export declare class CommonRequestLogger implements RequestListener {
     requestCollection: Collection<RequestRecord>;
@@ -20,4 +21,5 @@ export declare class CommonRequestLogger implements RequestListener {
     onRequest(request: Request, response: SimpleResponse, req: any): Promise<any>;
     onError(error: any, request?: Request): Promise<any>;
 }
+export declare function trackIPs(app: any): void;
 export declare function initializeRequestLogSchema(modeler: Modeler): void;

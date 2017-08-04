@@ -43,6 +43,7 @@ var CommonRequestLogger = (function () {
             response_body: JSON.stringify(sanitizeResponseBody(response.body)),
             milliseconds: new Date().getTime() - request.startTime,
             version: request.version.toString(),
+            ip: request.original.ip
         };
         return this.requestCollection.create(record);
     };
@@ -58,6 +59,10 @@ var CommonRequestLogger = (function () {
     return CommonRequestLogger;
 }());
 exports.CommonRequestLogger = CommonRequestLogger;
+function trackIPs(app) {
+    app.enable('trust proxy');
+}
+exports.trackIPs = trackIPs;
 function initializeRequestLogSchema(modeler) {
     modeler.addDefinitions(require('./schema/request.json'));
 }

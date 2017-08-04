@@ -34,6 +34,10 @@
       "milliseconds": {
         "type": "int"
       },
+      "ip": {
+        "type": "string",
+        "nullable": true
+      },
       "version": {
         "type": "string"
       }

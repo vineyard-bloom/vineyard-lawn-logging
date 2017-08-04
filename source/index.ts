@@ -13,9 +13,10 @@ export interface RequestRecord {
   response_body: string
   milliseconds: number
   version: string
+  ip: string
 }
 
-function sanitizeRequestBody(body){
+function sanitizeRequestBody(body) {
   if (body && (body.password || body.twoFactor)) {
     body = Object.assign({}, body)
 
@@ -29,7 +30,7 @@ function sanitizeRequestBody(body){
   return body
 }
 
-function sanitizeResponseBody(body){
+function sanitizeResponseBody(body) {
   if (body && (body.secret || body.secret_url)) {
     body = Object.assign({}, body)
 
@@ -71,6 +72,7 @@ export class CommonRequestLogger implements RequestListener {
       response_body: JSON.stringify(sanitizeResponseBody(response.body)),
       milliseconds: new Date().getTime() - request.startTime,
       version: request.version.toString(),
+      ip: request.original.ip
     }
     return this.requestCollection.create(record)
   }
@@ -85,6 +87,10 @@ export class CommonRequestLogger implements RequestListener {
     return this.errorLogger.logError(record)
   }
 
+}
+
+export function trackIPs(app) {
+  app.enable('trust proxy')
 }
 
 export function initializeRequestLogSchema(modeler: Modeler) {
