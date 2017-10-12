@@ -1,6 +1,6 @@
 import {Collection, Modeler} from "vineyard-ground"
 import {StandardErrorLogger, ErrorRecord} from 'vineyard-error-logging'
-import {Request, RequestListener, SimpleResponse} from 'vineyard-lawn'
+import {HTTP_Error, Request, RequestListener, SimpleResponse} from 'vineyard-lawn'
 
 export interface RequestRecord {
   path: string
@@ -16,7 +16,7 @@ export interface RequestRecord {
   ip: string
 }
 
-function sanitizeRequestBody(body) {
+function sanitizeRequestBody(body: any) {
   if (body && (body.password || body.twoFactor)) {
     body = Object.assign({}, body)
 
@@ -30,7 +30,7 @@ function sanitizeRequestBody(body) {
   return body
 }
 
-function sanitizeResponseBody(body) {
+function sanitizeResponseBody(body: any) {
   if (body && (body.secret || body.secret_url)) {
     body = Object.assign({}, body)
 
@@ -44,7 +44,7 @@ function sanitizeResponseBody(body) {
   return body
 }
 
-function formatObject(item) {
+function formatObject(item: any) {
   return !item || Object.keys(item).length == 0
     ? ''
     : JSON.stringify(item)
@@ -59,7 +59,7 @@ export class CommonRequestLogger implements RequestListener {
     this.errorLogger = errorLogger
   }
 
-  onRequest(request: Request, response: SimpleResponse, req): Promise<any> {
+  onRequest(request: Request, response: SimpleResponse, req: any): Promise<any> {
     const path = req.path[0] == '/' ? req.path.substr(1) : req.path
     const record: RequestRecord = {
       path: path,
@@ -71,13 +71,13 @@ export class CommonRequestLogger implements RequestListener {
       response_message: response.message,
       response_body: JSON.stringify(sanitizeResponseBody(response.body)),
       milliseconds: new Date().getTime() - request.startTime,
-      version: request.version.toString(),
+      version: request.version ? request.version.toString() : "unknown",
       ip: request.original.ip
     }
     return this.requestCollection.create(record)
   }
 
-  onError(error, request?: Request): Promise<any> {
+  onError(error: HTTP_Error, request?: Request): Promise<any> {
     const record: ErrorRecord = {
       code: error.status,
       key: '',
@@ -89,7 +89,7 @@ export class CommonRequestLogger implements RequestListener {
 
 }
 
-export function trackIPs(app) {
+export function trackIPs(app: any) {
   app.enable('trust proxy')
 }
 

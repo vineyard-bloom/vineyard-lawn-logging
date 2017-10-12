@@ -42,7 +42,7 @@ var CommonRequestLogger = (function () {
             response_message: response.message,
             response_body: JSON.stringify(sanitizeResponseBody(response.body)),
             milliseconds: new Date().getTime() - request.startTime,
-            version: request.version.toString(),
+            version: request.version ? request.version.toString() : "unknown",
             ip: request.original.ip
         };
         return this.requestCollection.create(record);

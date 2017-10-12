@@ -1,6 +1,6 @@
 import { Collection, Modeler } from "vineyard-ground";
 import { StandardErrorLogger } from 'vineyard-error-logging';
-import { Request, RequestListener, SimpleResponse } from 'vineyard-lawn';
+import { HTTP_Error, Request, RequestListener, SimpleResponse } from 'vineyard-lawn';
 export interface RequestRecord {
     path: string;
     method: string;
@@ -19,7 +19,7 @@ export declare class CommonRequestLogger implements RequestListener {
     errorLogger: StandardErrorLogger;
     constructor(requestCollection: Collection<RequestRecord>, errorLogger: StandardErrorLogger);
     onRequest(request: Request, response: SimpleResponse, req: any): Promise<any>;
-    onError(error: any, request?: Request): Promise<any>;
+    onError(error: HTTP_Error, request?: Request): Promise<any>;
 }
 export declare function trackIPs(app: any): void;
 export declare function initializeRequestLogSchema(modeler: Modeler): void;
